@@ -1,15 +1,8 @@
-import { moveMessagePortToContext } from 'node:worker_threads';
-import { brotliDecompressSync } from 'zlib';
-import './style.css';
-//import Background from './asset/background.png';
 const axios = require('axios');
+import './style.css';
 
-//require('dotenv').config();
-
-//const apikey='eb779c9bd1a3eee1af8429109cf7029f9268c71a';
 const apikey=process.env.API_KEY;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const showCurrentLocation=(data:any, array:any, coordinate:any)=>{
   const div:HTMLDivElement=document.createElement('div');
   let testo="";
@@ -55,7 +48,6 @@ const showStationName=(data:any, array:any)=>{
     const stationCoords=data[0].station.geo.toString().replace(',',';');
     getCityByLatLng(stationCoords);
   }
-  
 }
 
 const showCityName=(data:any, array:any)=>{
@@ -84,7 +76,7 @@ const showCityName=(data:any, array:any)=>{
   document.body.appendChild(div);
 }
 
-const showValues=(data:any, val:Number, coords:any)=>{
+const setData=(data:any, val:Number, coords:any)=>{
   const newTitles=['Umidità', 'NO2', 'O3', 'Pressione', 'PM10', 'PM25', 'Temp.'];
 
   const loader=document.getElementById('loader') as HTMLDivElement;
@@ -106,17 +98,17 @@ const showValues=(data:any, val:Number, coords:any)=>{
       break;
   }
 }
-
+/*la seguente api non è molto precisa poichè si basa sull'IP per tracciare la posizione*/
 const getNearestStation=async()=>{
   try {
     const response = await axios.get('https://api.waqi.info/feed/here/?token='+apikey);
-    showValues(response, 0, null);
+    setData(response, 0, null);
   } catch (error) {
     console.error(error);
   }
 }
 
-const getCityByName=async(city:any)=> {
+const getCityByName=async(city:String)=> {
   try {
     const response=await axios.get('https://api.waqi.info/feed/'+city+'/?token='+apikey);
     if(response.data.data=="Unknown station"){
@@ -125,17 +117,17 @@ const getCityByName=async(city:any)=> {
         getNearestStation();
       }
     }else{
-      showValues(response, 1, null);
+      setData(response, 1, null);
     }
   } catch (error) {
     console.error(error);
   }
 }
 
-const getStationByName=async(citystation:any)=>{
+const getStationByName=async(citystation:String)=>{
   try{
     const response = await axios.get('https://api.waqi.info/search/?keyword='+citystation+'&token='+apikey);
-    showValues(response, 2, null);
+    setData(response, 2, null);
   } catch(error){
     console.error(error);
   }
@@ -147,18 +139,29 @@ const getCoords=async()=>{
   }, errorCallback);
 }
 const errorCallback=(error:any)=>{
+  const loader=document.getElementById('loader') as HTMLDivElement;
+  const button=document.getElementById('button') as HTMLButtonElement;
+
   if(error.code==error.PERMISSION_DENIED){
     switch(error.code){
       case 0:
+        loader.style.visibility='hidden';
+        button.style.visibility = 'visible';
         alert("Errore Sconosciuto");
         break;
-      case 1:
+      case 1:     
+        loader.style.visibility='hidden';
+        button.style.visibility = 'visible';
         alert("Accesso negato dall'utente!");
         break;
       case 2:
+        loader.style.visibility='hidden';
+        button.style.visibility = 'visible';
         alert("Posizione non disponibile");
         break;
       case 3:
+        loader.style.visibility='hidden';
+        button.style.visibility = 'visible';
         alert("Tempo scaduto!");
     }
   }
@@ -167,7 +170,7 @@ const errorCallback=(error:any)=>{
 const getCityByLatLng=async(coordinate:any)=>{
   try {
       const response = await axios.get('https://api.waqi.info/feed/geo:'+coordinate.toString()+'/?token='+apikey);
-      showValues(response, 3, coordinate); 
+      setData(response, 3, coordinate); 
     } catch (error) {
       console.error(error);
   }
@@ -181,8 +184,6 @@ const searchFunction=()=>{
     const radio=document.querySelectorAll<HTMLInputElement>('input[name="radio"]') ;
     let selectedValue:String;
     
-    
-
     radio.forEach(el=>{
       if(el.checked){
         selectedValue=el.value;
@@ -236,21 +237,13 @@ const searchFunction=()=>{
       el.checked=false;
     });
     text.value="";
+
   } catch (error) {
     console.error(error);
   }   
 }
 
-document.body.onload=()=>{
-  const radio1=document.getElementById('scelta1') as HTMLInputElement;
-  const text=document.getElementById('citystation') as HTMLInputElement;
-  const loader=document.getElementById('loader') as HTMLDivElement;
-  loader.style.visibility='hidden';
-  radio1.checked=true;
-  text.focus();
-  modinptext();
 
-}
 
 const modinptext=()=>{
   try {
@@ -314,8 +307,6 @@ function drawPage(){
   inpText.className='textinput';
   inpText.id='citystation';
   
-  
-
   inpRadio1.type='radio';
   inpRadio1.name='radio';
   inpRadio1.value='1';
@@ -368,5 +359,13 @@ function drawPage(){
 
 document.body.appendChild(drawPage())
 
-
+document.body.onload=()=>{
+  const radio1=document.getElementById('scelta1') as HTMLInputElement;
+  const text=document.getElementById('citystation') as HTMLInputElement;
+  const loader=document.getElementById('loader') as HTMLDivElement;
+  loader.style.visibility='hidden';
+  radio1.checked=true;
+  text.focus();
+  modinptext();
+}
 
