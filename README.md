@@ -34,10 +34,11 @@ Una volta scaricato il codice ed aperto nell'editor preferito, compilare il prog
   npm start
   ```
 
-ecco che il progetto sarà visibile inserendo nel browser l'indirizzo:
+Ecco che il progetto sarà visibile all'indirizzo:
 http://localhost:8080
 
 A seguire il link dove è possibile provare l'applicazione.
+
 Happy Coding!
 
 ## Live Demo:
