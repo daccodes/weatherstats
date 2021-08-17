@@ -367,5 +367,6 @@ document.body.onload=()=>{
   radio1.checked=true;
   text.focus();
   modinptext();
+  document.title="Weather-stats-app";
 }
 
