@@ -13,6 +13,9 @@ Il suo utilizzo è piuttosto semplice, infatti basta indicare quale funzione si 
 Il progetto è realizzato utilizzando esclusivamente javascript,typescript e css per dare enfasi alla versatilità degli stessi linguaggi. Infatti proprio per questo motivo che grazie a webpack e loaders dedicati,  è stato possibile gestire risorse front-end come HTML, CSS e immagini. Per quanto riguarda la parte di build e di deployment, il webserver viene gestito da netlify. A seguire il link dove è possibile provare l'applicazione.
 
 
+## N.B.
+La scelta dell'utilizzo di javascript per disegnare tutti gli elementi del DOM è frutto solamente della volontà di mostrare le potenzialità del linguaggio, sia chiaro che non è la scelta ottimale sia per quanto riguarda le prestazioni, sia per quanto riguarda la facilità di lettura e manutenzione del codice.
+
 ## Live Demo:
 
 https://weatherstatsapp.netlify.app
