@@ -13,7 +13,7 @@ const showCurrentLocation=(data:any, array:any, coordinate:any)=>{
   else{
     const params:any=['pm25', 'pm10', 'o3', 'no2', 't', 'p', 'h'];
     const val:any=[];
-
+    /*se il parametro che voglio non è presente, lo sostituisco con un trattino. */
     for(const v in params){
       if(data.iaqi[params[v]] == undefined){
         val.push("-");
@@ -24,19 +24,19 @@ const showCurrentLocation=(data:any, array:any, coordinate:any)=>{
     }
     div.innerHTML=
         '<div class="head">'+data.city.name+'</div>'+
-        '<div class="cube25">'+array[5]+' : '+val[0]+'</span></div>'+
-        '<div class="cube">'+array[4]+' : '+val[1]+'</div>'+
-        '<div class="cube">'+array[2]+' : '+val[2]+'</div>'+
-        '<div class="cube">'+array[1]+' : '+val[3]+'</div>'+
-        '<div class="cube">'+array[6]+' : '+val[4]+'</div>'+
-        '<div class="cube">'+array[3]+' : '+val[5]+'</div>'+
-        '<div class="cube">'+array[0]+' : '+val[6]+'</div>';
+        '<div class="cube25">'+array[5]+' : '+val[0]+' µg/m3</div>'+
+        '<div class="cube">'+array[4]+' : '+val[1]+' µg/m3</div>'+
+        '<div class="cube">'+array[2]+' : '+val[2]+' µg/m3</div>'+
+        '<div class="cube">'+array[1]+' : '+val[3]+' µg/m3</div>'+
+        '<div class="cube">'+array[6]+' : '+val[4]+' °</div>'+
+        '<div class="cube">'+array[3]+' : '+val[5]+' hPa</div>'+
+        '<div class="cube">'+array[0]+' : '+val[6]+' %</div>';
     div.className='container1'
     document.body.appendChild(div)
   }
 }
 
-const showStationName=(data:any, array:any)=>{
+const showStationName=(data:any)=>{
   const radio1=document.getElementById('scelta1') as HTMLInputElement;
   const text=document.getElementById('citystation') as HTMLInputElement;
   if(data[0]==undefined){
@@ -65,13 +65,13 @@ const showCityName=(data:any, array:any)=>{
   }
   div.innerHTML=
       '<div class="head">'+data.city.name+'</div>'+
-      '<div class="cube25">'+array[5]+' : '+val[0]+'</span></div>'+
-      '<div class="cube">'+array[4]+' : '+val[1]+'</div>'+
-      '<div class="cube">'+array[2]+' : '+val[2]+'</div>'+
-      '<div class="cube">'+array[1]+' : '+val[3]+'</div>'+
-      '<div class="cube">'+array[6]+' : '+val[4]+'</div>'+
-      '<div class="cube">'+array[3]+' : '+val[5]+'</div>'+
-      '<div class="cube">'+array[0]+' : '+val[6]+'</div>';
+      '<div class="cube25">'+array[5]+' : '+val[0]+' µg/m3</div>'+
+      '<div class="cube">'+array[4]+' : '+val[1]+' µg/m3</div>'+
+      '<div class="cube">'+array[2]+' : '+val[2]+' µg/m3</div>'+
+      '<div class="cube">'+array[1]+' : '+val[3]+' µg/m3</div>'+
+      '<div class="cube">'+array[6]+' : '+val[4]+' °</div>'+
+      '<div class="cube">'+array[3]+' : '+val[5]+' hPa</div>'+
+      '<div class="cube">'+array[0]+' : '+val[6]+' %</div>';
   div.className='container1'
   document.body.appendChild(div);
 }
@@ -91,7 +91,7 @@ const setData=(data:any, val:Number, coords:any)=>{
       showCityName(data.data.data, newTitles)
       break;
     case val=2:
-      showStationName(data.data.data, newTitles);
+      showStationName(data.data.data);
       break;
     case val=3:
       showCurrentLocation(data.data.data,newTitles, coords);
