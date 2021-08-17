@@ -1,4 +1,4 @@
-# weatherstats
+# WEATHER-STATS-APP
 ## Di cosa si tratta: 
  
 Un servizio web che consente all'utente di ricercare informazioni riguardanti i principali inquinanti presenti nell'aria ed altri dati generici quali temperatura, pressione ed umidità.
