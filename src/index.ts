@@ -149,7 +149,7 @@ const errorCallback=(error:any)=>{
         button.style.visibility = 'visible';
         alert("Errore Sconosciuto");
         break;
-      case 1:
+      case 1:     
         loader.style.visibility='hidden';
         button.style.visibility = 'visible';
         alert("Accesso negato dall'utente!");
