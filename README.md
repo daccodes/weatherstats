@@ -1,4 +1,6 @@
 # WEATHER-STATS-APP
+![Progetto senza titolo](https://user-images.githubusercontent.com/85349333/129809198-8a12999c-9ea5-45d8-a3be-c876c9510467.png)
+
 ## Di cosa si tratta: 
  
 Un servizio web che consente all'utente di ricercare informazioni riguardanti i principali inquinanti presenti nell'aria ed altri dati generici quali temperatura, pressione ed umidità.
